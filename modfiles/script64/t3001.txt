@@ -1,0 +1,118 @@
+function evt_0000()
+{
+	if (this.Flag.Check(4000))
+	{
+		if (!this.Flag.Check(1117) || !this.Flag.Check(1118) || !this.Flag.Check(1120))
+		{
+			while (this.Field.IsHitEvent())
+			{
+				if (this.Work.IsPushKey("DECIDE"))
+				{
+					this.NPC_MESSAGE("mirei_help", 1505);
+					this.Field.MovePlayer("p_move_0000");
+
+					while (this.Field.IsMovePlayer())
+					{
+						this.WaitFrame(this.Util.SecondFromFrame(0.1));
+					}
+				}
+
+				this.WaitFrame(this.Util.SecondFromFrame(0.1));
+			}
+		}
+		else if (!this.Flag.Check(1105) && this.Flag.Check(1117) && this.Flag.Check(1118) && this.Flag.Check(1120))
+		{
+			while (this.Field.IsHitEvent())
+			{
+				if (this.Work.IsPushKey("DECIDE"))
+				{
+					this.EVENT_START_SET(0);
+					this.m01_t30_0501();
+					this.Common.LearnHackingSkill(1);
+					this.Common.LearnHackingSkill(2);
+					this.Common.LearnHackingSkill(3);
+					this.Common.LearnHackingSkill(4);
+					this.Common.LearnHackingSkill(6);
+					this.Common.LearnHackingSkill(8);
+					this.Common.LearnHackingSkill(10);
+					this.Common.LearnHackingSkill(11);
+					this.Common.LearnHackingSkill(12);
+					this.Common.LearnHackingSkill(13);
+					this.Common.LearnHackingSkill(14);
+					this.Common.LearnHackingSkill(19); // dungeon return, added by mod
+					this.Common.LearnHackingSkill(20); // acceleration, added by mod
+					this.TUTORIAL_WINDOW(33);
+					this.Flag.Set(4332);
+					this.Flag.Set(1105);
+					this.Talk.Load("mirei_help");
+					this.Talk.SetMode(1);
+					this.Message(1520);
+					this.Message(1521);
+					this.MessageClose();
+					this.TalkExit();
+					this.Sound.PlaySE("fe_068", false);
+					this.Field.ChangeField("d02", 1, "start_02", 225);
+				}
+
+				this.WaitFrame(this.Util.SecondFromFrame(0.1));
+			}
+		}
+		else if (this.Flag.Check(2513) && !this.Flag.Check(2520))
+		{
+			while (this.Field.IsHitEvent())
+			{
+				if (this.Work.IsPushKey("DECIDE"))
+				{
+					this.Flag.Set(2520);
+					this.Sound.PlaySE("fe_068", false);
+					this.Field.ChangeField("t05", 2, "start_80", 180);
+				}
+
+				this.WaitFrame(this.Util.SecondFromFrame(0.1));
+			}
+		}
+		else
+		{
+			this.YES_NO_WARPtoFIELD();
+		}
+	}
+	else
+	{
+		this.YES_NO_WARPtoFIELD();
+	}
+}
+
+function t3001()
+{
+	this.Sound.StopBGM(1);
+	this.Sound.StopAllSE(1);
+
+	if (this.Flag.Check(4000))
+	{
+		if (this.Quest.GetProgress(75) == 2 && !this.Flag.Check(5681))
+		{
+		}
+		else
+		{
+			this.Field.PlayBGM_CustomSound("M10", 0.0);
+		}
+	}
+	else
+	{
+		this.Field.PlayBGM_CustomSound("M10", 0.0);
+	}
+
+	// Dungeon Return, added by mod
+	if (!this.Common.IsLearnHackingSkill(19))
+	{
+		this.Common.LearnHackingSkill(19);
+	}
+
+	// Acceleration, added by mod
+	if (!this.Common.IsLearnHackingSkill(20))
+	{
+		this.Common.LearnHackingSkill(20);
+	}
+
+	this.SET_t3001_STATUS();
+}
