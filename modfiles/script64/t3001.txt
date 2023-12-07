@@ -86,6 +86,7 @@ function t3001()
 {
 	this.Sound.StopBGM(1);
 	this.Sound.StopAllSE(1);
+	this.Field.SetEnableHackingSkillMenu(false); // disable hacking menu to prevent Dungeon Return
 
 	if (this.Flag.Check(4000))
 	{
